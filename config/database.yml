@@ -1,0 +1,35 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "postgres") %>
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: deploy_serve_caseiro_development
+
+test:
+  <<: *default
+  database: deploy_serve_caseiro_test
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: deploy_serve_caseiro_production
+    username: deploy_serve_caseiro
+    password: <%= ENV["DEPLOY_SERVE_CASEIRO_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: deploy_serve_caseiro_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: deploy_serve_caseiro_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: deploy_serve_caseiro_production_cable
+    migrations_paths: db/cable_migrate
