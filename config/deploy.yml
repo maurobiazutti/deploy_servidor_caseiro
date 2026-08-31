@@ -91,13 +91,13 @@ builder:
   #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  user: mauro
 
 accessories:
   db:
     image: postgres:17
-    host: <ip-do-notebook>
+    host: 192.168.1.100
     port: "127.0.0.1:5432:5432"
     env:
       clear:
