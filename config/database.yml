@@ -19,8 +19,8 @@ production:
   primary: &primary_production
     <<: *default
     database: deploy_serve_caseiro_production
-    username: deploy_serve_caseiro
-    password: <%= ENV["DEPLOY_SERVE_CASEIRO_DATABASE_PASSWORD"] %>
+    # username: deploy_serve_caseiro
+    # password: <%= ENV["DEPLOY_SERVE_CASEIRO_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: deploy_serve_caseiro_production_cache
